@@ -22,14 +22,22 @@ public class Blackjack {
     /**
      * Deck used for Blackjack.
      * These are integer values.
+     * 
+     * DELETE(?)
+     * MAY NOT BE NECESSARY.
      */
-    private static final int[] CARD_VALUES = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+    // private static final int[] CARD_VALUES = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
 
     /** Random variable for randomizing card selection. */
     private static Random rand = new Random();
 
     /** Array list to manage and edit the deck. */
     private static ArrayList<String> deck = new ArrayList<>(DECK.length);
+
+    boolean aceValue = getAceValue(0);
+
+    String currCard = getCard();
+    int currCardValue = getCardValue(currCard, aceValue);
 
     /**
      * Running blackjack.
@@ -67,10 +75,46 @@ public class Blackjack {
         return card;
     }
 
-    public static int getCardValue() {
+    public static int getCardValue(String card, boolean aceValue) {
         // TODO
+        if (card.equals("10") || card.equals("J") || card.equals("Q") || card.equals("K")) {
+            return 10;
+        } else if (card.equals("A")) {
+            if (aceValue == true) {
+                return 1;
+            } else {
+                return 11;
+            }
+        } else {
+            switch(card) {
+                case "2":
+                    return 2;
+                case "3":
+                    return 3;
+                case "4":
+                    return 4;
+                case "5":
+                    return 5;
+                case "6":
+                    return 6;
+                case "7":
+                    return 7;
+                case "8":
+                    return 8;
+                case "9":
+                    return 9;
+                default:
+                    return -1;
+            }
+        }
+    }
 
-        // FIX ME
-        return 0;
+    public static boolean getAceValue(int aceChoice) {
+
+        if (aceChoice == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
